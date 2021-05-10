@@ -3,7 +3,7 @@ import ResourceListWithCollections from '../components/ResourceListWithCollectio
 
 const Index = () => (
   <Page>
-    <Heading>Shopify app with Node and React 🎉</Heading>
+    <ResourceListWithCollections />
   </Page>
 );
 
