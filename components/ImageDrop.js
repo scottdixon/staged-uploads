@@ -76,6 +76,21 @@ function ImageDrop(props) {
       method: 'POST',
       body: formData,
     })
+
+    if (response.ok) {
+      const key = parameters.find(p => p.name === 'key')
+      await collectionUpdate({ variables: {
+          "input": {
+            "id": props.collectionId,
+            "image": {
+              "src": `${url}/${key.value}`
+            }
+          }
+        }
+      })
+    }
+
+    setLoading(false)
   }
 
   return (
