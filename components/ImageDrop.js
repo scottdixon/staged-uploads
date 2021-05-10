@@ -49,6 +49,21 @@ function ImageDrop(props) {
 
   const handleDropZoneDrop = async ([file]) => {
     setLoading(true)
+
+    let { data } = await stagedUploadsCreate({ variables: {
+      "input": [
+        {
+          "resource": "COLLECTION_IMAGE",
+          "filename": file.name,
+          "mimeType": file.type,
+          "fileSize": file.size.toString(),
+          "httpMethod": "POST"
+        }
+      ]
+    }})
+
+    const [{ url, parameters }] = data.stagedUploadsCreate.stagedTargets
+
   }
 
   return (
