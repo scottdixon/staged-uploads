@@ -64,6 +64,18 @@ function ImageDrop(props) {
 
     const [{ url, parameters }] = data.stagedUploadsCreate.stagedTargets
 
+    const formData = new FormData()
+
+    parameters.forEach(({name, value}) => {
+      formData.append(name, value)
+    })
+
+    formData.append('file', file)
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+    })
   }
 
   return (
