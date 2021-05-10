@@ -7,6 +7,7 @@ import {
   Stack,
   TextStyle,
 } from '@shopify/polaris';
+import ImageDrop from './ImageDrop'
 
 const GET_COLLECTIONS = gql`
   query {
@@ -39,9 +40,13 @@ class ResourceListWithCollections extends React.Component {
                 resourceName={{ singular: 'Collection', plural: 'Collections' }}
                 items={data.collections.edges}
                 renderItem={item => {
+                  const media = (
+                    <ImageDrop collectionId={item.node.id} collectionImage={item.node.image ? item.node.image.originalSrc : ''} />
+                  );
                   return (
                     <ResourceList.Item
                       id={item.node.id}
+                      media={media}
                     >
                       <Stack>
                         <Stack.Item fill>
