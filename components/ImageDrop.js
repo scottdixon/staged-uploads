@@ -72,14 +72,18 @@ function ImageDrop(props) {
 
     formData.append('file', file)
 
-    const response = await fetch(url, {
-      method: 'POST',
-      body: formData,
-    })
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      })
 
-    if (response.ok) {
+      if (!response.ok) {
+        throw('File could not be uploaded.')
+      }
+
       const key = parameters.find(p => p.name === 'key')
-      await collectionUpdate({ variables: {
+      let { data } = await collectionUpdate({ variables: {
           "input": {
             "id": props.collectionId,
             "image": {
@@ -88,6 +92,12 @@ function ImageDrop(props) {
           }
         }
       })
+
+      if (data.collectionUpdate.userErrors.length) {
+        throw('Collection image could not be updated.')
+      }
+    } catch(err) {
+      props.setToastMessage(err)
     }
 
     setLoading(false)

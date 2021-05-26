@@ -41,7 +41,7 @@ class ResourceListWithCollections extends React.Component {
                 items={data.collections.edges}
                 renderItem={item => {
                   const media = (
-                    <ImageDrop collectionId={item.node.id} collectionImage={item.node.image ? item.node.image.originalSrc : ''} />
+                    <ImageDrop collectionId={item.node.id} collectionImage={item.node.image ? item.node.image.originalSrc : ''} setToastMessage={this.props.setToastMessage} />
                   );
                   return (
                     <ResourceList.Item
